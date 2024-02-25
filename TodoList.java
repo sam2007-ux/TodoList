@@ -26,19 +26,23 @@ public class TodoList {
 
   // Imporved View All Tasks
 
-  public void viewAllTasks() {
+  public ArrayList<String> viewAllTasks() {
+    ArrayList<String> allTasks = new ArrayList<>();
     if (tasks.isEmpty()) {
       System.out.println("No tasks in the list");
     } else {
       System.out.println("----- All Tasks -----");
       for (int i = 0; i < tasks.size(); i++) {
-        System.out.println((i + 1) + "." + tasks.get(i));
+        String task = (i + 1) + "." + tasks.get(i);
+        allTasks.add(task);
+        System.out.println(task);
       }
     }
+
+    return allTasks;
   }
 
-  // View Completed Tasks
-  public void viewCompletedTasks() {
+  public ArrayList<String> getCompletedList() {
     ArrayList<String> completedTasks = new ArrayList<>();
     for (String task : tasks) {
       if (task.endsWith("[Completed]")) {
@@ -46,14 +50,29 @@ public class TodoList {
       }
     }
 
+    return completedTasks;
+  }
+
+  // View Completed Tasks
+  public ArrayList<String> viewCompletedTasks() {
+    ArrayList<String> completedTasks = getCompletedList();
+
+    if (completedTasks == null) {
+      System.out.println("Error retrieving completed tasks.");
+      return new ArrayList<>(); // Return an empty list or handle it appropriately
+    }
+
     if (completedTasks.isEmpty()) {
       System.out.println("No completed tasks in the list.");
     } else {
       System.out.println("----- Completed Tasks -----");
       for (int i = 0; i < completedTasks.size(); i++) {
-        System.out.println((i + 1) + "." + completedTasks.get(i));
+        String completedTask = (i + 1) + "." + completedTasks.get(i);
+        System.out.println(completedTask);
       }
     }
+
+    return completedTasks;
   }
 
   // Mark Task as completed
