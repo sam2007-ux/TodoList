@@ -33,4 +33,9 @@ public class TodoList {
       }
     }
   }
+
+  // dummy print
+  public void print() {
+    System.out.println("Greetings!!");
+  }
 }
