@@ -36,35 +36,49 @@ TxtToDo is a versatile text-based ToDoList application written in Java, aimed at
    git clone https://github.com/sam2007-ux/TodoList.git
 
 2.Compile the Java files - 
+   ```bash
   javac TodoList.java TodoListApp.java
+```
 
 3. Run the application -
-     java TodoListApp
+   ```bash
+   java TodoListApp
 
 ## Usage
+
 2.1 Choose from a variety of options in the menu:
+
 2.2 Add Task
+
 2.3 Remove Task
+
 2.4 View Tasks
+
 2.5 Exit
 
 ## Example
 
 1. Add Task:
+
    Enter the Task: Finish project report
+   
    Task "Finish project report" added.
 
-2. Remove Task:
+3. Remove Task:
+   
      Enter the Task to Remove: Study for exam
+   
      Task "Study for exam" removed.
 
-3. View Tasks:
-     Enter the Task to View: 
+5. View Tasks:
+     Enter the Task to View:
+   
      1. Finish project report
      2. Submit assignment
      3. Attend meeting
 
-4. Exit:
+7. Exit:
+   
      Exiting the To-Do List Application. Goodbye!
 
 ## Contributing
