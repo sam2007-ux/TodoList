@@ -1,3 +1,5 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,7 +9,11 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class TodoListAppGUI extends Application implements EventHandler<ActionEvent> {
   private final TodoList todoList = new TodoList();
@@ -20,26 +26,101 @@ public class TodoListAppGUI extends Application implements EventHandler<ActionEv
   }
 
   @Override
-  public void start(Stage primarStage) {
-    primarStage.setTitle("ToDoList App");
+  public void start(Stage primaryStage) {
+    primaryStage.setTitle("ToDoList App");
 
+    /*
+     * // Set up the Menu
+     * Menu todoMenu = new Menu("TodoList");
+     * 
+     * MenuItem continueMenuItem = new MenuItem("Continue");
+     * continueMenuItem.setOnAction(e -> showTodoList(primaryStage));
+     * 
+     * MenuItem settingsMenuItem = new MenuItem("Settings");
+     * settingsMenuItem.setOnAction(e -> showSettings(primaryStage));
+     * 
+     * MenuItem exitMenuItem = new MenuItem("Exit");
+     * exitMenuItem.setOnAction(e -> System.exit(0));
+     * 
+     * todoMenu.getItems().addAll(continueMenuItem, settingsMenuItem, exitMenuItem);
+     * 
+     * MenuBar menuBar = new MenuBar();
+     * menuBar.getMenus().addAll(todoMenu);
+     * 
+     * Will need commented code later
+     */
+
+    Text titleText = new Text("TodoList Application");
+    // titleText.setFont(Font.font(20));
+    titleText.setFont(Font.font(20));
+    titleText.getStyleClass().add("text");
+
+    Button continueButton = new Button("Continue");
+    Button settingsButton = new Button("Settings");
+    Button exiButton = new Button("Exit");
+
+    continueButton.getStyleClass().add("starting-button");
+    settingsButton.getStyleClass().add("starting-button");
+    exiButton.getStyleClass().add("starting-button");
+
+    continueButton.setOnAction(e -> showTodoList(primaryStage));
+    settingsButton.setOnAction(e -> showSettings(primaryStage));
+    exiButton.setOnAction(e -> System.exit(0));
+
+    VBox startLayout = new VBox(10);
+    startLayout.setPadding(new Insets(10));
+    startLayout.getChildren().addAll(titleText, continueButton, settingsButton, exiButton);
+
+    Scene startScene = new Scene(startLayout, 300, 200);
+
+    startScene.getStylesheets().add("style.css");
+
+    primaryStage.setScene(startScene);
+
+    primaryStage.show();
+  }
+
+  private void showTodoList(Stage primaryStage) {
     // Set up the GUI components
     Button addButton = new Button("Add Task");
+    addButton.getStyleClass().add("todo-button");
     Button removeButton = new Button("Remove Task");
+    removeButton.getStyleClass().add("todo-button");
     Button viewAllButton = new Button("View All Tasks");
+    viewAllButton.getStyleClass().add("todo-button");
     Button viewCompletedButton = new Button("View Completed Tasks");
+    viewCompletedButton.getStyleClass().add("todo-button");
     Button markCompletedButton = new Button("Mark Task as Completed");
+    markCompletedButton.getStyleClass().add("todo-button");
     Button sortTasksButton = new Button("Sort Tasks");
+    sortTasksButton.getStyleClass().add("todo-button");
+
+    // Set up blinking cursor animation for taskInput
+    Text cursor = new Text("|");
+    cursor.setFill(Color.BLUE);
+
+    Timeline blinkCursor = new Timeline(
+        new KeyFrame(Duration.seconds(0.5), event -> cursor.setVisible(!cursor.isVisible())));
+    blinkCursor.setCycleCount(Timeline.INDEFINITE);
+    blinkCursor.play();
+
+    taskInput.textProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue.isEmpty()) {
+        blinkCursor.play();
+      } else {
+        blinkCursor.pause();
+        cursor.setVisible(true);
+      }
+    });
 
     // Set up the layout
-
     VBox layout = new VBox(10);
     layout.setPadding(new Insets(10));
-    layout.getChildren().addAll(taskInput, tasksListView, addButton, removeButton, viewAllButton, viewCompletedButton,
+    layout.getChildren().addAll(taskInput, tasksListView, addButton, removeButton, viewAllButton,
+        viewCompletedButton,
         markCompletedButton, sortTasksButton);
 
     // Set up event handlers
-
     addButton.setOnAction(e -> addTask());
     removeButton.setOnAction(e -> removeTask());
     viewAllButton.setOnAction(e -> viewAllTasks());
@@ -48,9 +129,15 @@ public class TodoListAppGUI extends Application implements EventHandler<ActionEv
     sortTasksButton.setOnAction(e -> sortTasks());
 
     Scene scene = new Scene(layout, 600, 400);
-    primarStage.setScene(scene);
+    scene.getStylesheets().add("style.css");
+    primaryStage.setScene(scene);
 
-    primarStage.show();
+    primaryStage.show();
+
+  }
+
+  private void showSettings(Stage primaryStage) {
+    System.out.println("Showing Settings...");
   }
 
   private void addTask() {
@@ -93,5 +180,4 @@ public class TodoListAppGUI extends Application implements EventHandler<ActionEv
     todoList.sortTasks();
     viewAllTasks();
   }
-
 }

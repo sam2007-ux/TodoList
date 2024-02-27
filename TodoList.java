@@ -8,13 +8,13 @@ public class TodoList {
     this.tasks = new ArrayList<>();
   }
 
-  // add Task ---
+  // add Task
   public void addTasks(String task) {
     tasks.add(task);
     System.out.println("Task \"" + task + "\" added.");
   }
 
-  // remove Task ---
+  // remove Task
   public void removeTasks(String task) {
     if (tasks.contains(task)) {
       tasks.remove(task);
@@ -24,8 +24,7 @@ public class TodoList {
     }
   }
 
-  // Imporved View All Tasks
-
+  // Improved View All Tasks
   public ArrayList<String> viewAllTasks() {
     ArrayList<String> allTasks = new ArrayList<>();
     if (tasks.isEmpty()) {
@@ -90,5 +89,4 @@ public class TodoList {
     Collections.sort(tasks);
     System.out.println("Tasks sorted Alphabetically");
   }
-
 }
