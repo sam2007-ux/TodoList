@@ -1,0 +1,45 @@
+/* style.css */
+
+.text {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-fill: #3498db;
+}
+
+.starting-button {
+  /*
+  -fx-background-color: #3498db;
+  */
+  -fx-text-fill: black;
+  -fx-font-size: 20px;
+  -fx-pref-width: 140px;
+}
+
+/*
+.starting-button:hover {
+  -fx-background-color: #2980b9;
+}
+*/
+
+/* Background color for the VBox layout */
+.vbox {
+  -fx-background-color: #f4f4f4;
+}
+
+/* Styling for buttons */
+.todo-button {
+  /*
+  -fx-background-color: #3498db;
+  */
+  /* Button background color */
+  -fx-text-fill: black;
+  /* Button text color */
+  -fx-background-radius: 20;
+}
+
+/* Hover effect */
+.todo-button:hover {
+  /*
+  -fx-background-color: #2980b9;
+  /* New background color on hover */
+}
